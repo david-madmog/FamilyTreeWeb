@@ -364,17 +364,54 @@ function PopulateFocusIndi(IndiID, fragment)
 
   // Now, if multiple FAMS, add tag/link for each one
   fams = elem.getElementsByTagName("FAMS") ;
-  if (fams.length > 1) 
+  for (var j = 0; j < fams.length; j++) 
   {
-    for (var j = 0; j < fams.length; j++) 
+    newElement = document.createElement("P");
+    newElement.setAttribute("onClick", "loadIndividual('" + IndiID + "', " + j + ");");
+    newElement.setAttribute("class", "pseudolink") ;
+
+    var mDate = "" ;
+    famsID = GetElementChildElementAttributeByID("INDI", IndiID, "FAMS", j) ;
+    elem = MyGetElementByID("FAM", famsID) ;
+    if (elem != undefined)
     {
-      newElement = document.createElement("P");
-      newElement.setAttribute("onClick", "loadIndividual('" + IndiID + "', " + j + ");");
-      newElement.setAttribute("class", "pseudolink") ;
-      newElement.innerHTML = "Marriage #" + (j+1) ;
-      newElement.style.fontSize = "8pt" ;
-      fragElem.appendChild(newElement);
+      var marrElem = elem.getElementsByTagName("MARR")[0] ;
+      if (marrElem != undefined) 
+      {
+        var marrElemDate =  marrElem.getElementsByTagName("DATE")[0] ;
+        if (marrElemDate != undefined) 
+        {
+          mDate = marrElemDate.innerHTML ;
+        }
+      }
     }
+    if (mDate == "")
+    {
+      if ( fams.length > 1) 
+      {
+        newElement.innerHTML = "Marriage #" + (j+1) ;
+      }
+    } else {
+      newElement.innerHTML = "m. " + mDate ;
+    }
+   
+
+/*
+    <FAM ID="F8">
+    ...
+    <MARR>
+      <DATE>30 JUL 1992</DATE>
+    </MARR>
+function 
+    return "";
+  }	
+  childElems = ;
+
+ 
+ 
+*/
+    newElement.style.fontSize = "8pt" ;
+    fragElem.appendChild(newElement);
   }
   
 }

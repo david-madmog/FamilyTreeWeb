@@ -136,7 +136,6 @@ function SizeBigTree() {
 function resize() {
     SizeBigTree() ;
 
-//    DrawTree("CT") ;                      
     DrawTree("CTFF") ;                      
     DrawTree("CTFM") ;                      
     DrawTree("CTMF") ;                      
@@ -150,22 +149,12 @@ function loadInitialPage() {
 
     xml=loadXMLDoc("DAVID.XML");
 
-    SizeBigTree() ;
+    resize() ;
     
     LoadIndiIndex("index") 
   
     var IndiID = "I1";
     loadIndividual(IndiID) ;
-   
-//    DrawTree("CT") ;                      
-    DrawTree("CTFF") ;                      
-    DrawTree("CTFM") ;                      
-    DrawTree("CTMF") ;                      
-    DrawTree("CTMM") ;                      
-    DrawTree("CTF") ;                      
-    DrawTree("CTM") ;                      
-//    DrawTree("CTI") ;                      
-
 //  } catch(e) {
 //    alert('An error has occurred: '+e.message)
 //  }
