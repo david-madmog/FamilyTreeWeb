@@ -363,12 +363,15 @@ function PopulateFocusIndi(IndiID, fragment)
   }  
 
   // Now, if multiple FAMS, add tag/link for each one
+  //  Also, look up FAM record for each FAMS to determine date of marriage
   fams = elem.getElementsByTagName("FAMS") ;
   for (var j = 0; j < fams.length; j++) 
   {
     newElement = document.createElement("P");
-    newElement.setAttribute("onClick", "loadIndividual('" + IndiID + "', " + j + ");");
-    newElement.setAttribute("class", "pseudolink") ;
+    if ( fams.length > 1) {
+      newElement.setAttribute("onClick", "loadIndividual('" + IndiID + "', " + j + ");");
+      newElement.setAttribute("class", "pseudolink") ;
+    }
 
     var mDate = "" ;
     famsID = GetElementChildElementAttributeByID("INDI", IndiID, "FAMS", j) ;
@@ -388,32 +391,13 @@ function PopulateFocusIndi(IndiID, fragment)
     if (mDate == "")
     {
       if ( fams.length > 1) 
-      {
         newElement.innerHTML = "Marriage #" + (j+1) ;
-      }
     } else {
       newElement.innerHTML = "m. " + mDate ;
     }
-   
-
-/*
-    <FAM ID="F8">
-    ...
-    <MARR>
-      <DATE>30 JUL 1992</DATE>
-    </MARR>
-function 
-    return "";
-  }	
-  childElems = ;
-
- 
- 
-*/
     newElement.style.fontSize = "8pt" ;
     fragElem.appendChild(newElement);
   }
-  
 }
 
 function PopulateNonFocusIndi(IndiID, fragment)
