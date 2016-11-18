@@ -5,10 +5,10 @@ function DrawTree(ID) {
 
 	Number = a_canvas.getAttribute("fork") ;
 
-  if (Number == 0)
-    a_canvas.style.display = "none" ;
-  else
-    a_canvas.style.display = "inline" ;
+//  if (Number == 0)
+//    a_canvas.style.display = "none" ;
+//  else
+//    a_canvas.style.display = "inline" ;
 
 //canvas.width / canvas.height are about the size in pixel of the buffer that will contains the result of drawing commands.
 //canvas.style.width / canvas.style.height are about the size used to show the canvas object in the browser window and they can be in any of the units supported by css.
@@ -59,8 +59,11 @@ function DrawTree(ID) {
       context.lineTo((w/2)+8,(h/2) - 2);
       context.moveTo((w/2)-8,(h/2) + 2);
       context.lineTo((w/2)+8,(h/2) + 2);
-      context.moveTo((w/2),(h/2) + 2);
-      context.lineTo((w/2),h);
+      if (Number < 0)
+      {
+        context.moveTo((w/2),(h/2) + 2);
+        context.lineTo((w/2),h);
+      }
     }
     
     context.stroke();
@@ -70,20 +73,6 @@ function DrawTree(ID) {
 function loadXMLDoc(fname)
 {
   var xmlhttp=false;
-/*@cc_on @*/
-/*@if (@_jscript_version >= 5)
-// JScript gives us Conditional compilation, we can cope with old IE versions.
-// and security blocked creation of the objects.
-  try {
-    xmlhttp = new ActiveXObject("Msxml2.XMLHTTP");
-  } catch (e) {
-    try {
-      xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
-    } catch (E) {
-      xmlhttp = false;
-    }
-  }
-@end @*/
   if (!xmlhttp && typeof XMLHttpRequest!='undefined') {
     try {
       xmlhttp = new XMLHttpRequest();
@@ -104,10 +93,10 @@ function loadXMLDoc(fname)
     xmlhttp.send() ;
   } catch(e){
     // use sample 
-	parser = new DOMParser();
-	text = DevSampleXML();
+    parser = new DOMParser();
+    text = DevSampleXML();
     xmlDoc = parser.parseFromString(text,"text/xml");
-	return xmlDoc;
+    return xmlDoc;
   //    alert('An error has occurred: '+e.message)
   }
   return(xmlhttp.responseXML);
@@ -135,14 +124,20 @@ function GetElementChildElementTextByID(ElementType, ElementID, ChildType)
   }	
   childElems = elem.getElementsByTagName(ChildType) ;
 
-  // now, there should be only one of these, just use the first one  
-  var childrenschildren = childElems[0].childNodes; 
-  for (var j = 0; j < childrenschildren.length; j++) 
+  // now, there should be only one of these, just use the first one 
+//TO DO BUG HERE if no element  
+  if ( childElems.length > 0)
   {
-    if (childrenschildren[j].nodeType == 3 ) // text node
+    var childrenschildren = childElems[0].childNodes; 
+    for (var j = 0; j < childrenschildren.length; j++) 
     {
-      return (childrenschildren[j].nodeValue) ;
+      if (childrenschildren[j].nodeType == 3 ) // text node
+      {
+        return (childrenschildren[j].nodeValue) ;
+      }
     }
+  } else {
+    return "" ;
   }
 }
 
@@ -196,11 +191,25 @@ function CreateChildInfo(fragElem, elem, ExtraText)
   newElement.setAttribute("class", "subtext") ;
   var AnotherNewElem ;
 
+  childElems = elem.getElementsByTagName("TYPE") ;
+  if (childElems.length > 0)
+  {
+    ExtraText = childElems[0].innerHTML ;
+  }
+
+  for (var i = 0; i < elem.childNodes.length ; i++) 
+  {
+    if (elem.childNodes[i].nodeType == 3 ) 
+    {
+      str = str + elem.childNodes[i].nodeValue ;
+    }
+  }
+  
   childElems = elem.getElementsByTagName("DATE") ;
   // now, there should be only one of these, just use the first one  
   if (childElems.length > 0)
   {
-    str = str + childElems[0].innerHTML ;
+    str = str + " " + childElems[0].innerHTML ;
   }
   
   childElems = elem.getElementsByTagName("PLAC") ;
@@ -222,6 +231,8 @@ function CreateChildInfo(fragElem, elem, ExtraText)
     {
       str == "Note" ;
     }
+  } else {
+    AnotherNewElem = undefined ;
   }
   
   if (str != "")
@@ -291,51 +302,12 @@ function PopulateFocusIndi(IndiID, fragment)
         case "MARR":
           CreateChildInfo(fragElem, elem.childNodes[j], "Marriage") ;
           break;
-        case "SOUR":
-          CreateChildInfo(fragElem, elem.childNodes[j], "Source") ;
-          break;
         case "EVEN":
-          var EvenText = "" ;
-          for (var i = elem.childNodes[j].childNodes.length - 1; i >= 0; i--) 
-          {
-            var LE = elem.childNodes[j].childNodes[i] ;
-            if (LE.nodeType == 3 ) 
-            {
-              EvenText = EvenText + LE.nodeValue ;
-            }
-            if (LE.nodeName == "TYPE")
-            {
-              EvenText = EvenText + LE.innerHTML + ": " ;
-            }
-            if (LE.nodeName == "PLAC")
-            {
-              EvenText = EvenText + " At " + LE.innerHTML ;
-            }
-          }
-          newElement = document.createElement("P");
-          newElement.setAttribute("class", "subtext") ;
-          newElement.innerHTML = EvenText;
-          fragElem.appendChild(newElement);
+          CreateChildInfo(fragElem, elem.childNodes[j], "") ;
           break ;
         case "OCCU":
-          var EvenText = "" ;
-          for (var i = 0; i < elem.childNodes[j].childNodes.length ; i++) 
-          {
-            var LE = elem.childNodes[j].childNodes[i] ;
-            if (LE.nodeType == 3 ) 
-            {
-              EvenText = EvenText + LE.nodeValue ;
-            }
-            if (LE.nodeName == "PLAC")
-            {
-              EvenText = EvenText + " At " + LE.innerHTML ;
-            }
-          }
-          newElement = document.createElement("P");
-          newElement.setAttribute("class", "subtext") ;
-          newElement.innerHTML = EvenText;
-          fragElem.appendChild(newElement);
-          break;
+          CreateChildInfo(fragElem, elem.childNodes[j], "") ;
+          break ;
         case "NOTE":
           newElement = document.createElement("P");
           newElement.setAttribute("class", "tooltip") ;
@@ -351,6 +323,7 @@ function PopulateFocusIndi(IndiID, fragment)
         case "SEX":
         case "FAMS":
         case "FAMC":
+        case "SOUR":
           // ignore
           break;
         default:
@@ -416,6 +389,7 @@ function PopulateNonFocusIndi(IndiID, fragment)
 }
 
 function loadIndividual(IndiID, MarriageNumber) 
+// Main function for populating the body of the page
 {
   // first, set the title 
   Name = GetElementChildElementTextByID("INDI", IndiID, "NAME");
@@ -509,7 +483,6 @@ function loadIndividual(IndiID, MarriageNumber)
     }
     children = FamsElem.getElementsByTagName("CHIL") ; 
 
-      //DrawTree("CT", children.length, 600, 50) ; 
     CTElem.setAttribute("fork", children.length) ;      
     DrawTree("CT") ;                      
 
@@ -555,6 +528,7 @@ function SortChildren(list)
 }
 
 function LoadIndiIndex(fragElem) 
+// Populates the Index of all indis 
 {
   Indis = xml.getElementsByTagName("INDI") ;
   ChildrenLocation = document.getElementById(fragElem) ;
@@ -578,6 +552,7 @@ function LoadIndiIndex(fragElem)
 }
 
 function TextEntry() {
+// Called when soneone types into the filter box on the index  
   ChildrenLocation = document.getElementById("index") ;
   TextBoxValue = document.getElementById("filter").value.toUpperCase() ;
   

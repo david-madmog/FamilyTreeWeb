@@ -1,20 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <?xml-stylesheet type="text/xsl" href="GedMLToHTML.xsl"?>
 <GED>
-  <HEAD>
-    <SOUR>
-            FamilyOrigins
-            <NAME>Family Origins(R) for Windows</NAME><VERS>4.1a</VERS><CORP>FormalSoft, Inc.</CORP></SOUR>
-    <DEST>DISKETTE</DEST>
-    <DATE>18 JUL 2006</DATE>
-    <SUBM REF="SUB1">
-    </SUBM>
-    <FILE>DAVID.GED</FILE>
-    <GEDC>
-      <VERS>5.5</VERS>
-      <FORM>LINEAGE-LINKED</FORM>
-    </GEDC>
-  </HEAD>
   <SUBM ID="SUB1">
     <NAME>David Poirier</NAME>
     <ADDR>
@@ -185,9 +171,7 @@
     </FAMC>
   </INDI>
   <INDI ID="I14">
-    <NAME>
-            Frank Charles /Hay/
-            <NPFX>Professor</NPFX></NAME>
+    <NAME>Professor Frank Charles /Hay/</NAME>
     <SEX>M</SEX>
     <FAMS REF="F6">
     </FAMS>

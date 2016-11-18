@@ -133,8 +133,19 @@ function SizeBigTree() {
     overlay.style.height = document.getElementById("CTX").offsetHeight + document.getElementById("family").offsetHeight ;
 }
 
+function SizeIndexHolder() {
+    var IH = document.getElementById("indexHolder") ;
+    var body = document.getElementsByTagName('body')[0] ;
+    var big_coordinates=getXYpos(document.getElementById("index"));
+    var bp_y = big_coordinates['y'];
+
+    // set these values for the new created element
+    IH.style.height = body.offsetHeight - bp_y ;
+}
+
 function resize() {
     SizeBigTree() ;
+    SizeIndexHolder() ;
 
     DrawTree("CTFF") ;                      
     DrawTree("CTFM") ;                      
@@ -142,6 +153,7 @@ function resize() {
     DrawTree("CTMM") ;                      
     DrawTree("CTF") ;                      
     DrawTree("CTM") ;                      
+    DrawTree("CT") ;                      
 }
 
 function loadInitialPage() {
