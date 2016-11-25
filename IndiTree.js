@@ -347,7 +347,7 @@ function PopulateFocusIndi(IndiID, fragment)
     }
 
     var mDate = "" ;
-    famsID = GetElementChildElementAttributeByID("INDI", IndiID, "FAMS", j) ;
+    var famsID = GetElementChildElementAttributeByID("INDI", IndiID, "FAMS", j) ;
     elem = MyGetElementByID("FAM", famsID) ;
     if (elem != undefined)
     {
@@ -402,7 +402,7 @@ function loadIndividual(IndiID, MarriageNumber)
   }
 
   famsID = GetElementChildElementAttributeByID("INDI", IndiID, "FAMS", MarriageNumber) ;
-  
+   
   // If individual is never married, we can't quite proceed like this...
   if (famsID == "") 
   {
