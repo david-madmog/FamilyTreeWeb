@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <?xml-stylesheet type="text/xsl" href="GedMLToHTML.xsl"?>
 <GED>
   <SUBM ID="SUB1">
@@ -110,7 +110,6 @@
     </BIRT>
     <FAMC REF="F3">
     </FAMC>
-    <FAMS REF="F136" />
   </INDI>
   <INDI ID="I9">
     <NAME>Alasdair /Shott/</NAME>
@@ -1518,15 +1517,12 @@
     <NAME>Ronald /Sulkin/</NAME>
     <SEX>M</SEX>
     <BIRT>
-      <DATE>8 Sep 1932</DATE>
+      <DATE>8 SEP 1932</DATE>
     </BIRT>
     <FAMS REF="F74">
     </FAMS>
     <FAMC REF="F4">
     </FAMC>
-    <DEAT>
-      <DATE>16 Oct 2015</DATE>
-    </DEAT>
   </INDI>
   <INDI ID="I192">
     <NAME>Sandra /Levine/</NAME>
@@ -1557,7 +1553,6 @@
     </BIRT>
     <FAMC REF="F74">
     </FAMC>
-    <FAMS REF="F138" />
   </INDI>
   <INDI ID="I195">
     <NAME>John Judah /Bush/</NAME>
@@ -4506,47 +4501,4 @@
     <TITL>David's Source</TITL>
     <AUTH>David Poirier</AUTH>
   </SOUR>
-  <INDI ID="I371">
-    <NAME>Tom /Jockelson/</NAME>
-    <SEX>M</SEX>
-    <BIRT>
-      <DATE>2 May 1987</DATE>
-    </BIRT>
-    <FAMS REF="F136" />
-  </INDI>
-  <INDI ID="I372">
-    <NAME>Simon /Alford/</NAME>
-    <SEX>M</SEX>
-    <FAMS REF="F138" />
-  </INDI>
-  <INDI ID="I373">
-    <NAME>Sarah /Alford/</NAME>
-    <SEX>F</SEX>
-    <FAMC REF="F138" />
-    <BIRT>
-      <DATE>8 May 2000</DATE>
-    </BIRT>
-  </INDI>
-  <INDI ID="I374">
-    <NAME>Ilana /Alford/</NAME>
-    <SEX>F</SEX>
-    <FAMC REF="F138" />
-    <BIRT>
-      <DATE>5 Nov 2005</DATE>
-    </BIRT>
-  </INDI>
-  <FAM ID="F136">
-    <MARR>
-      <DATE>2 Jul 2016</DATE>
-    </MARR>
-    <HUSB REF="I371" />
-    <WIFE REF="I8" />
-  </FAM>
-  <FAM ID="F137" />
-  <FAM ID="F138">
-    <HUSB REF="I372" />
-    <WIFE REF="I194" />
-    <CHIL REF="I373" />
-    <CHIL REF="I374" />
-  </FAM>
 </GED>
